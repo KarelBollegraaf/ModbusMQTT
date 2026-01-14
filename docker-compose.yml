@@ -1,0 +1,20 @@
+version: "2.4"
+
+services:
+  modbus_app:
+    image: modbustest-modbus_app:latest
+    build: 
+      context: ./src
+    container_name: modbus_app
+    volumes:
+      - ./cfg-data/:/cfg-data/
+    restart: unless-stopped
+    networks:
+      - proxy-redirect
+    mem_limit: 55mb
+    mem_reservation: 50mb
+
+networks:
+  proxy-redirect:
+    external: true
+    name: proxy-redirect
