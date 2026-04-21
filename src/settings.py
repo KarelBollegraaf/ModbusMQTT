@@ -1,13 +1,14 @@
-import json
+import os
 
 def init():
-    with open("/cfg-data/Param.JSON", "r") as f:
-        global MODBUS_BALER_IP, MODBUS_BALER_PORT, MQTT_BROKER, MQTT_PORT, MQTT_USER, MQTT_PASSWORD, MQTT_MB_TOPIC
-        dParam = json.load(f)
-        MODBUS_BALER_IP = dParam["Modbus_IP"]
-        MODBUS_BALER_PORT = dParam["Modbus_port"]
-        MQTT_BROKER = dParam["MQTT_BROKER"]
-        MQTT_PORT = dParam["MQTT_PORT"]
-        MQTT_USER = dParam["MQTT_USER"]
-        MQTT_PASSWORD = dParam["MQTT_PASSWORD"]
-        MQTT_MB_TOPIC = dParam["MQTT_MB_TOPIC"]
+    global MODBUS_BALER_IP, MODBUS_BALER_PORT, MQTT_BROKER, MQTT_PORT, MQTT_USER, MQTT_PASSWORD, MQTT_MB_TOPIC
+
+    MODBUS_BALER_IP = os.getenv("MODBUS_BALER_IP", "192.168.1.15")
+    MODBUS_BALER_PORT = int(os.getenv("MODBUS_BALER_PORT", "502"))
+    MQTT_BROKER = os.getenv("MQTT_BROKER", "mqtt-dashboard.com")
+    MQTT_PORT = int(os.getenv("MQTT_PORT", "1883"))
+    MQTT_USER = os.getenv("MQTT_USER", "")
+    MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "")
+    MQTT_MB_TOPIC = os.getenv("MQTT_MB_TOPIC", "ModbusTest/1")
+
+    print("Loaded config from environment/defaults")

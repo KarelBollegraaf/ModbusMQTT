@@ -1,9 +1,9 @@
 {
-    "Modbus_IP" : "192.168.1.15", 
-    "Modbus_port" : 502,
-    "MQTT_BROKER" : "mqtt-dashboard.com",
-    "MQTT_PORT" : 1883,
-    "MQTT_USER" : "",
-    "MQTT_PASSWORD" : "",
-    "MQTT_MB_TOPIC" : "ModbusTest/1"
+  "Modbus_IP": "192.168.1.15",
+  "Modbus_port": 502,
+  "MQTT_BROKER": "192.168.1.100",
+  "MQTT_PORT": 1883,
+  "MQTT_USER": "",
+  "MQTT_PASSWORD": "",
+  "MQTT_MB_TOPIC": "ModbusTest/1"
 }

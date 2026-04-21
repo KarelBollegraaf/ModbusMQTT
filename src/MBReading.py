@@ -22,8 +22,10 @@ def bitmap_signed_to_unsigned(input: int, bytes: int) -> int:
     return int.from_bytes(inputbytes, 'little', signed=False)
 
 def read_bool(client: ModbusClient, register: int) -> bool:
-    data = client.read_holding_registers(register, 1)[0]
-    return data != 0
+    data = client.read_holding_registers(register, 1)
+    if not data:
+        raise RuntimeError(f"Failed reading register {register}")
+    return data[0] != 0
 
 def read_date(client: ModbusClient, register: int) -> datetime:
     order = ("year", "month", "day", "hour", "minute", "second")
@@ -36,8 +38,11 @@ def read_f32(client: ModbusClient, register: int) -> float:
     return unpack("f", pack("HH", *client.read_holding_registers(register, 2)))[0]
 
 def read_i16(client: ModbusClient, register: int, signed = True) -> int:
-    data = client.read_holding_registers(register, 1)[0]
-    return data if signed else bitmap_signed_to_unsigned(data, 2)
+    data = client.read_holding_registers(register, 1)
+    if not data:
+        raise RuntimeError(f"Failed reading i16 register {register}")
+    value = data[0]
+    return value if signed else bitmap_signed_to_unsigned(value, 2)
 
 def read_i32(client: ModbusClient, register: int, signed = True) -> int:
     data = client.read_holding_registers(register, 2)

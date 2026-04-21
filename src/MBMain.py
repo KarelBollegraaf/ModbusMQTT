@@ -126,7 +126,6 @@ def main():
             print("Length MQTT message published successfully.")
         except Exception as e:
             print(f"Error publishing Length MQTT message: {e}")
-        publish_Lenght_JSON(MQTT_client, settings.MQTT_MB_TOPIC, EventIdentivier, BaleReadyd, BaleClickd)
            
         sleep(3) # sleep 1 second before checking again
 
